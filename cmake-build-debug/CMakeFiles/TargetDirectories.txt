@@ -1,0 +1,3 @@
+C:/Users/harry.carpenter/CLionProjects/CITS2002-Project-2/cmake-build-debug/CMakeFiles/mergetars.dir
+C:/Users/harry.carpenter/CLionProjects/CITS2002-Project-2/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/harry.carpenter/CLionProjects/CITS2002-Project-2/cmake-build-debug/CMakeFiles/rebuild_cache.dir

@@ -14,6 +14,7 @@
 #include <stdint.h>
 #include <string.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include "mergetars.h"
 
 
@@ -24,6 +25,7 @@
 
 int is_regular_file(char *dir);
 static int bufcmp(const void *p, const void *q, size_t n);
+bool exists_in_dir(char *file_name, char *dir);
 
 //-------------- end in-line definitions -----------------//
 
@@ -57,22 +59,38 @@ void compare_files(char *temp_directory){
         strcpy(f_dir, temp_directory);
         strcat(f_dir, "/");
         strcat(f_dir, dp->d_name);
-
         if(is_regular_file(f_dir) == 1){
-
+            // copy the first file, doesn't need comparing
+            char * f_out = (char *) malloc(100);
+            strcpy(f_out, temp_directory);
+            strcat(f_out, "/out/");
             if(files_processed == 0){
-                char * f_out = (char *) malloc(100);
-                strcpy(f_out, temp_directory);
-                strcat(f_out, "/out");
-                if(copy_files(f_dir, f_out) != 0) {
+                printf("copying file to %s\n", f_out);
+                if(copy_files(f_dir, f_out, dp->d_name) != 0) {
                     printf("\n");
                     perror("Error, failed to copy file");
                 }
+            } else {
+                // for the other files, time to compare them to the already copies
+                if(!exists_in_dir(dp->d_name, f_out)) {
+                    printf("DOESNT EXIST\n");
+                    char *f_out = (char *) malloc(100);
+                    strcpy(f_out, temp_directory);
+                    strcat(f_out, "/out/");
+                    printf("copying file to %s\n", f_out);
+                    if (copy_files(f_dir, f_out, dp->d_name) != 0) {
+                        printf("\n");
+                        perror("Error, failed to copy file");
+                    }
+                }
+
             }
-
             files_processed++;
+        } else {
+            // this will be for copying folders, will need to drill down into the folder to comp the files
+            // I wonder if I can just make this func drill recurring?
+            // compare_files(f_dir);
         }
-
         free(f_dir);
     }
 
@@ -99,4 +117,32 @@ static int bufcmp(const void *p, const void *q, size_t n)
     }
 
     return 1;
+}
+
+bool exists_in_dir(char *file_name, char *dir){
+
+    struct dirent  *entry;
+    DIR *output_dir = opendir(dir);
+    bool exists = false;
+    while ((entry = readdir(output_dir)) != NULL) {
+        if(strcmp(".", entry->d_name) == 0 || strcmp("..", entry->d_name) == 0) continue;
+        printf("entry: %s, dp: %s\n", entry->d_name, file_name);
+        if(entry->d_name == file_name){
+            printf("\nFILE EXISTS\n");
+            //if same file name, check which is newer
+            struct stat entry_stat;
+            struct stat new_stat;
+
+            printf(" Copied modify time %s\n",
+                   ctime(&entry_stat.st_mtime)
+            );
+
+            printf(" New modify time %s\n",
+                   ctime(&new_stat.st_mtime)
+            );
+            return true;
+        }
+    }
+
+    return false;
 }

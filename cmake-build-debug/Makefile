@@ -312,6 +312,33 @@ myfunction.c.s:
 	$(MAKE) -f CMakeFiles/mergetars.dir/build.make CMakeFiles/mergetars.dir/myfunction.c.s
 .PHONY : myfunction.c.s
 
+run_cmd.o: run_cmd.c.o
+
+.PHONY : run_cmd.o
+
+# target to build an object file
+run_cmd.c.o:
+	$(MAKE) -f CMakeFiles/mergetars.dir/build.make CMakeFiles/mergetars.dir/run_cmd.c.o
+.PHONY : run_cmd.c.o
+
+run_cmd.i: run_cmd.c.i
+
+.PHONY : run_cmd.i
+
+# target to preprocess a source file
+run_cmd.c.i:
+	$(MAKE) -f CMakeFiles/mergetars.dir/build.make CMakeFiles/mergetars.dir/run_cmd.c.i
+.PHONY : run_cmd.c.i
+
+run_cmd.s: run_cmd.c.s
+
+.PHONY : run_cmd.s
+
+# target to generate assembly for a file
+run_cmd.c.s:
+	$(MAKE) -f CMakeFiles/mergetars.dir/build.make CMakeFiles/mergetars.dir/run_cmd.c.s
+.PHONY : run_cmd.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -342,6 +369,9 @@ help:
 	@echo "... myfunction.o"
 	@echo "... myfunction.i"
 	@echo "... myfunction.s"
+	@echo "... run_cmd.o"
+	@echo "... run_cmd.i"
+	@echo "... run_cmd.s"
 .PHONY : help
 
 

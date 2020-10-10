@@ -8,6 +8,7 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <sys/stat.h>
+#include "sysbin.h"
 
 char *expand_tars(int tarc, char *tars[], char *dir_name){
 
@@ -24,7 +25,7 @@ char *expand_tars(int tarc, char *tars[], char *dir_name){
         sprintf(tar_xf_cmd,"tar -xf %s -C %s", tars[i], tar_xf_dir);
 
         //TODO: replace with execl, fork and wait for running command
-        if(system(tar_xf_cmd) == -1){
+        if(run_cmd(tar_xf_cmd) == -1){
             perror("tar command failed\n");
             free(tar_xf_cmd);
             exit(0);

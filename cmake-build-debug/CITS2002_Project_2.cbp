@@ -102,6 +102,12 @@
 		<Unit filename="/mnt/c/Users/harrycarpenter/OneDrive/Documents/UWA/Year 2/Semester 2/CITS2002/CITS2002-Project-2/myfunction.c">
 			<Option target="mergetars"/>
 		</Unit>
+		<Unit filename="/mnt/c/Users/harrycarpenter/OneDrive/Documents/UWA/Year 2/Semester 2/CITS2002/CITS2002-Project-2/run_cmd.c">
+			<Option target="mergetars"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/harrycarpenter/OneDrive/Documents/UWA/Year 2/Semester 2/CITS2002/CITS2002-Project-2/sysbin.h">
+			<Option target="mergetars"/>
+		</Unit>
 		<Unit filename="/mnt/c/Users/harrycarpenter/OneDrive/Documents/UWA/Year 2/Semester 2/CITS2002/CITS2002-Project-2/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>

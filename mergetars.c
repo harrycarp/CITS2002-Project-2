@@ -44,8 +44,18 @@ int main(int argc, char *argv[]){
     // this will copy and valid files into a working _out directory within the temp folder.
     // this is so we can easily compartmentalise and work with duplicate files, because we
     // don't want to override anything, yet.
-    compare_files(temp_dir);
+    compare_files(temp_dir, tarc);
 
+    //create the defined output tar, throw error if failed
+    if(create_output_tar(temp_dir, argv[argc-1]) != 0){
+        printf("ERROR: Failed to create output TAR file\n");
+        return 1;
+    }
+
+    if(cleanup(temp_dir) != 0){
+        printf("core finished successfully, but temp cleanup failed :(\n");
+        return 0;
+    }
 
     //this needs to propagate to the children in future, otherwise it won't work
     /* Don't forget to delete the folder afterwards. */

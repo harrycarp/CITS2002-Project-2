@@ -78,10 +78,16 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/mnt/c/Users/harrycarpenter/OneDrive/Documents/UWA/Year 2/Semester 2/CITS2002/CITS2002-Project-2/cleanup.c">
+			<Option target="mergetars"/>
+		</Unit>
 		<Unit filename="/mnt/c/Users/harrycarpenter/OneDrive/Documents/UWA/Year 2/Semester 2/CITS2002/CITS2002-Project-2/compare_files.c">
 			<Option target="mergetars"/>
 		</Unit>
 		<Unit filename="/mnt/c/Users/harrycarpenter/OneDrive/Documents/UWA/Year 2/Semester 2/CITS2002/CITS2002-Project-2/copy_files.c">
+			<Option target="mergetars"/>
+		</Unit>
+		<Unit filename="/mnt/c/Users/harrycarpenter/OneDrive/Documents/UWA/Year 2/Semester 2/CITS2002/CITS2002-Project-2/create_output_tar.c">
 			<Option target="mergetars"/>
 		</Unit>
 		<Unit filename="/mnt/c/Users/harrycarpenter/OneDrive/Documents/UWA/Year 2/Semester 2/CITS2002/CITS2002-Project-2/expand_tars.c">

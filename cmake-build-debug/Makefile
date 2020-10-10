@@ -123,6 +123,33 @@ mergetars/fast:
 	$(MAKE) -f CMakeFiles/mergetars.dir/build.make CMakeFiles/mergetars.dir/build
 .PHONY : mergetars/fast
 
+cleanup.o: cleanup.c.o
+
+.PHONY : cleanup.o
+
+# target to build an object file
+cleanup.c.o:
+	$(MAKE) -f CMakeFiles/mergetars.dir/build.make CMakeFiles/mergetars.dir/cleanup.c.o
+.PHONY : cleanup.c.o
+
+cleanup.i: cleanup.c.i
+
+.PHONY : cleanup.i
+
+# target to preprocess a source file
+cleanup.c.i:
+	$(MAKE) -f CMakeFiles/mergetars.dir/build.make CMakeFiles/mergetars.dir/cleanup.c.i
+.PHONY : cleanup.c.i
+
+cleanup.s: cleanup.c.s
+
+.PHONY : cleanup.s
+
+# target to generate assembly for a file
+cleanup.c.s:
+	$(MAKE) -f CMakeFiles/mergetars.dir/build.make CMakeFiles/mergetars.dir/cleanup.c.s
+.PHONY : cleanup.c.s
+
 compare_files.o: compare_files.c.o
 
 .PHONY : compare_files.o
@@ -176,6 +203,33 @@ copy_files.s: copy_files.c.s
 copy_files.c.s:
 	$(MAKE) -f CMakeFiles/mergetars.dir/build.make CMakeFiles/mergetars.dir/copy_files.c.s
 .PHONY : copy_files.c.s
+
+create_output_tar.o: create_output_tar.c.o
+
+.PHONY : create_output_tar.o
+
+# target to build an object file
+create_output_tar.c.o:
+	$(MAKE) -f CMakeFiles/mergetars.dir/build.make CMakeFiles/mergetars.dir/create_output_tar.c.o
+.PHONY : create_output_tar.c.o
+
+create_output_tar.i: create_output_tar.c.i
+
+.PHONY : create_output_tar.i
+
+# target to preprocess a source file
+create_output_tar.c.i:
+	$(MAKE) -f CMakeFiles/mergetars.dir/build.make CMakeFiles/mergetars.dir/create_output_tar.c.i
+.PHONY : create_output_tar.c.i
+
+create_output_tar.s: create_output_tar.c.s
+
+.PHONY : create_output_tar.s
+
+# target to generate assembly for a file
+create_output_tar.c.s:
+	$(MAKE) -f CMakeFiles/mergetars.dir/build.make CMakeFiles/mergetars.dir/create_output_tar.c.s
+.PHONY : create_output_tar.c.s
 
 expand_tars.o: expand_tars.c.o
 
@@ -267,12 +321,18 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... mergetars"
 	@echo "... edit_cache"
+	@echo "... cleanup.o"
+	@echo "... cleanup.i"
+	@echo "... cleanup.s"
 	@echo "... compare_files.o"
 	@echo "... compare_files.i"
 	@echo "... compare_files.s"
 	@echo "... copy_files.o"
 	@echo "... copy_files.i"
 	@echo "... copy_files.s"
+	@echo "... create_output_tar.o"
+	@echo "... create_output_tar.i"
+	@echo "... create_output_tar.s"
 	@echo "... expand_tars.o"
 	@echo "... expand_tars.i"
 	@echo "... expand_tars.s"

@@ -56,17 +56,6 @@ CMAKE_BINARY_DIR = "/mnt/c/Users/harrycarpenter/OneDrive/Documents/UWA/Year 2/Se
 #=============================================================================
 # Targets provided globally by CMake.
 
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
-
 # Special rule for the target edit_cache
 edit_cache:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
@@ -77,6 +66,17 @@ edit_cache:
 edit_cache/fast: edit_cache
 
 .PHONY : edit_cache/fast
+
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/usr/bin/cmake -H$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -122,6 +122,19 @@ mergetars: cmake_check_build_system
 mergetars/fast:
 	$(MAKE) -f CMakeFiles/mergetars.dir/build.make CMakeFiles/mergetars.dir/build
 .PHONY : mergetars/fast
+
+#=============================================================================
+# Target rules for targets named test_thing
+
+# Build rule for target.
+test_thing: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 test_thing
+.PHONY : test_thing
+
+# fast build rule for target.
+test_thing/fast:
+	$(MAKE) -f CMakeFiles/test_thing.dir/build.make CMakeFiles/test_thing.dir/build
+.PHONY : test_thing/fast
 
 cleanup.o: cleanup.c.o
 
@@ -339,15 +352,43 @@ run_cmd.c.s:
 	$(MAKE) -f CMakeFiles/mergetars.dir/build.make CMakeFiles/mergetars.dir/run_cmd.c.s
 .PHONY : run_cmd.c.s
 
+test_thing.o: test_thing.c.o
+
+.PHONY : test_thing.o
+
+# target to build an object file
+test_thing.c.o:
+	$(MAKE) -f CMakeFiles/test_thing.dir/build.make CMakeFiles/test_thing.dir/test_thing.c.o
+.PHONY : test_thing.c.o
+
+test_thing.i: test_thing.c.i
+
+.PHONY : test_thing.i
+
+# target to preprocess a source file
+test_thing.c.i:
+	$(MAKE) -f CMakeFiles/test_thing.dir/build.make CMakeFiles/test_thing.dir/test_thing.c.i
+.PHONY : test_thing.c.i
+
+test_thing.s: test_thing.c.s
+
+.PHONY : test_thing.s
+
+# target to generate assembly for a file
+test_thing.c.s:
+	$(MAKE) -f CMakeFiles/test_thing.dir/build.make CMakeFiles/test_thing.dir/test_thing.c.s
+.PHONY : test_thing.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
 	@echo "... all (the default if no target is provided)"
 	@echo "... clean"
 	@echo "... depend"
-	@echo "... rebuild_cache"
-	@echo "... mergetars"
 	@echo "... edit_cache"
+	@echo "... mergetars"
+	@echo "... rebuild_cache"
+	@echo "... test_thing"
 	@echo "... cleanup.o"
 	@echo "... cleanup.i"
 	@echo "... cleanup.s"
@@ -372,6 +413,9 @@ help:
 	@echo "... run_cmd.o"
 	@echo "... run_cmd.i"
 	@echo "... run_cmd.s"
+	@echo "... test_thing.o"
+	@echo "... test_thing.i"
+	@echo "... test_thing.s"
 .PHONY : help
 
 

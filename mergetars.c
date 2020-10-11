@@ -52,10 +52,10 @@ int main(int argc, char *argv[]){
         return 1;
     }
 
-    if(cleanup(temp_dir) != 0){
-        printf("core finished successfully, but temp cleanup failed :(\n");
-        return 0;
-    }
+//    if(cleanup(temp_dir) != 0){
+//        printf("core finished successfully, but temp cleanup failed :(\n");
+//        return 0;
+//    }
 
     //this needs to propagate to the children in future, otherwise it won't work
     /* Don't forget to delete the folder afterwards. */

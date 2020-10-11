@@ -42,4 +42,5 @@ set(CMAKE_MAKEFILE_PRODUCTS
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
   "CMakeFiles/mergetars.dir/DependInfo.cmake"
+  "CMakeFiles/test_thing.dir/DependInfo.cmake"
   )

@@ -16,15 +16,28 @@ char *expand_tars(int tarc, char *tars[], char *dir_name){
 
     for(int i = 0; i < tarc; i++){
         //construct the command to extract the tar file to the temp directory
-        char* tar_xf_cmd = malloc(128 * sizeof(char));
-        char* tar_xf_dir = malloc(128 * sizeof(char));
+        char* tar_xf_cmd = malloc(1024 * sizeof(char));
+        char* tar_xf_dir = malloc(512 * sizeof(char));
 
         //construct the sub-directory for comparison extraction
+        //Since sysctl can't deal with relative paths, we need to convert it to absolute
+
+        //first we get the current working directory
+        //limiting to 255 bytes, but can be increased for rather large dir trees
+        char *cwd = malloc(255);
+        getcwd(cwd, 255);
+
         sprintf(tar_xf_dir,"%s/%i", dir_name, i);
         mkdir(tar_xf_dir ,0777);
-        sprintf(tar_xf_cmd,"tar -xf %s -C %s", tars[i], tar_xf_dir);
 
-        //TODO: replace with execl, fork and wait for running command
+        // depending on whether or not the path is absolute, it will append the working directory
+        if(tars[i][0] == *"/"){
+            sprintf(tar_xf_cmd,"tar -xf \"%s\" -C %s", tars[i], tar_xf_dir);
+        } else {
+            sprintf(tar_xf_cmd,"tar -xf \"%s/%s\" -C %s", cwd, tars[i], tar_xf_dir);
+        }
+
+
         if(run_cmd(tar_xf_cmd) == -1){
             perror("tar command failed\n");
             free(tar_xf_cmd);

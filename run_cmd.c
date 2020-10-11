@@ -8,35 +8,68 @@
 #include <errno.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <memory.h>
+
+// ------- inline function definitions ------- //
+char split_command(char * command);
+// ------- end inline definitions ------------ //
 
 int run_cmd(char *input) {
     pid_t pid;
     int status;
     pid_t ret;
-    char *const args[3] = { input, NULL};
+    char *const args[3] = {"/bin/sh", input, NULL};
     char **env;
     extern char **environ;
 
-
     /* ... Sanitize arguments ... */
+
+    printf("extracting using command:\n %s\n", input);
 
     pid = fork();
     if (pid == -1) {
         /* Handle error */
-        perror("invalid pid for fork command\n");
+        perror("failed to fork process");
         return -1;
-    }  else {
-        /* ... Initialize env as a sanitized copy of environ ... */
-        printf("running command %s\n", input);
-        if (execl("/bin/sh", "/bin/sh", "-c", input, 0) == -1) {
-            /* Handle error */
-            perror("exec error");
-            _Exit(127);
-        } else {
-            printf("cmd success!\n");
-            return 0;
+    } else if (pid != 0) {
+        while ((ret = waitpid(pid, &status, 0)) == -1) {
+            if (errno != EINTR) {
+                /* Handle error */
+                perror("unexpected pid error");
+                break;
+            }
         }
+        if ((ret != -1) &&
+            (!WIFEXITED(status) || !WEXITSTATUS(status)) ) {
+            /* Report unexpected child status */
+            printf("unexpected child status!\n");
+            return -1;
+        }
+    } else {
+        /* ... Initialize env as a sanitized copy of environ ... */
+        if (execv("/bin/sh", args) == -1) {
+            /* Handle error */
+            perror("failed to run execve");
+            exit(127);
+        }
+
+    }
+    return 0;
+}
+
+char split_command(char * command){
+    int i = 0;
+    char *p = strtok (command, " ");
+    char *array[3];
+
+    while (p != NULL)
+    {
+        array[i++] = p;
+        p = strtok (NULL, "/");
     }
 
+    for (i = 0; i < 3; ++i)
+        printf("%s\n", array[i]);
 
+    return array;
 }

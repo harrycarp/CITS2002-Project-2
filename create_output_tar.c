@@ -9,9 +9,6 @@
 
 int create_output_tar(char * temp_directory, char * output_file) {
 
-    char * command = (char *) malloc(1024);
-    sprintf(command, "tar -cf %s ", output_file);
-    printf("\n");
 
 
     char * temp_out_dir = (char *) malloc(100);
@@ -22,11 +19,15 @@ int create_output_tar(char * temp_directory, char * output_file) {
 
     struct dirent  *entity;
 
+
+    char * command = (char *) malloc(1024);
+    sprintf(command, "tar -cf %s ", output_file);
+
     while ((entity = readdir(temp_dir)) != NULL) {
         if(strcmp(".", entity->d_name) == 0 || strcmp("..", entity->d_name) == 0) continue;
 
         char * dir = (char *) malloc(128);
-        sprintf(dir, "%s/%s ", temp_out_dir, entity->d_name);
+        sprintf(dir, "\"%s/%s\" ", temp_out_dir, entity->d_name);
         strcat(command, dir);
         free(dir);
     }

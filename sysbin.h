@@ -5,6 +5,6 @@
 #ifndef CITS2002_PROJECT_2_SYSBIN_H
 #define CITS2002_PROJECT_2_SYSBIN_H
 
-int run_cmd(char *input);
+int run_cmd(char *input[6]);
 
 #endif //CITS2002_PROJECT_2_SYSBIN_H

@@ -9,6 +9,7 @@
 #include <stdio.h>
 #include <sys/stat.h>
 #include "sysbin.h"
+#include <string.h>
 
 char *expand_tars(int tarc, char *tars[], char *dir_name){
 
@@ -32,13 +33,32 @@ char *expand_tars(int tarc, char *tars[], char *dir_name){
 
         // depending on whether or not the path is absolute, it will append the working directory
         if(tars[i][0] == *"/"){
-            sprintf(tar_xf_cmd,"tar -xf \"%s\" -C %s", tars[i], tar_xf_dir);
+            sprintf(tar_xf_cmd,"tar -T \"%s\" -C %s", tars[i], tar_xf_dir);
         } else {
-            sprintf(tar_xf_cmd,"tar -xf \"%s/%s\" -C %s", cwd, tars[i], tar_xf_dir);
+            sprintf(tar_xf_cmd,"tar -T \"%s/%s\" -C %s", cwd, tars[i], tar_xf_dir);
         }
 
+        char *tar_loc  = malloc(512 * sizeof(char));
 
-        if(run_cmd(tar_xf_cmd) == -1){
+        //check if tar origin is absolute or relative
+        if(tars[i][0] == *"/"){
+            sprintf(tar_loc, "\"%s\"", tars[i]);
+        } else {
+            sprintf(tar_loc, "\"%s/%s\"", cwd, tars[i]);
+        }
+
+//        printf("tar loc val: %s\n", tar_loc);
+
+        char * args[6] = {
+                "tar",
+                "-xvf",
+                tar_loc,
+                "-C",
+                tar_xf_dir,
+                NULL
+        };
+
+        if(run_cmd(args) == -1){
             perror("tar command failed\n");
             free(tar_xf_cmd);
             exit(0);

@@ -7,11 +7,25 @@
 #include <unistd.h>
 #include <stdio.h>
 #include <stdbool.h>
+#include "sysbin.h"
 
 // I suppose we're assuming that the user IS passing through valid .tar files.
 // The program will throw if it's not able to be unzipped via tar command, so that's the "safeguard"
 // if you could call it that.
 
+// ------------------------- in line defs ------------------------ //
+//    int create_output_tar(char * temp_directory, char * output_file);
+//    int compare_files(char *temp_directory, int tarc);
+
+
+// -----------------------end in line defs ----------------------- //
+
+/**
+ * Merge some TAR files
+ * @param argc
+ * @param argv
+ * @return
+ */
 int main(int argc, char *argv[]){
 
     if(argc == 1){
@@ -33,7 +47,7 @@ int main(int argc, char *argv[]){
 
     // construct the temporary directory
     char template[] = "/tmp/tmpdir.XXXXXX";
-    char *temp_dir = mkdtemp(template);
+    char *temp_dir = mkdtemp((char *) &template);
     // if the temp creation fails, drop everything and exit.
     if(temp_dir == NULL){ perror("mkdtemp failed: "); exit( 0); }
 
@@ -44,26 +58,23 @@ int main(int argc, char *argv[]){
     // this will copy and valid files into a working _out directory within the temp folder.
     // this is so we can easily compartmentalise and work with duplicate files, because we
     // don't want to override anything, yet.
-    compare_files(temp_dir, tarc);
-
-    //create the defined output tar, throw error if failed
-    if(create_output_tar(temp_dir, argv[argc-1]) != 0){
-        printf("ERROR: Failed to create output TAR file\n");
-        return 1;
+    if(comparefiles(tarc, temp_dir) != 0) {
+        perror("something went wrong!");
+        return 121;
     }
 
-//    if(cleanup(temp_dir) != 0){
-//        printf("core finished successfully, but temp cleanup failed :(\n");
-//        return 0;
-//    }
+    int create_result = create_output_tar(temp_dir, argv[argc-1]);
 
-    //this needs to propagate to the children in future, otherwise it won't work
-    /* Don't forget to delete the folder afterwards. */
-//    if(rmdir(temp_dir) == -1)
-//    {
-//        perror("rmdir failed: ");
-//        return 0;
-//    }
+    //create the defined output tar, throw error if failed
+    if(create_result != 0){
+        printf("ERROR: Failed to create output TAR file\n");
+        return 122;
+    }
+
+    if(cleanup(temp_dir) != 0){
+        perror("core finished successfully, but temp cleanup failed");
+        return 0;
+    }
 
     return 0;
 }

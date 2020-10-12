@@ -9,8 +9,8 @@
  * For this cleanup command I simply ran the rm -rf command as this program is unix based.
  * This is the most efficient method as looping through every file and sub-directory
  * Is time consuming and bad practice when it comes to efficiency.
- * @param temp_dir
- * @return
+ * @param temp_dir: the directory to clean
+ * @return success state (0 for pass, -1 for fail)
  */
 int cleanup (char * temp_dir) {
 

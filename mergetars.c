@@ -29,10 +29,10 @@
 int main(int argc, char *argv[]){
 
     if(argc == 1){
-        printf("You have not provided any input criteria, aborting");
+        printf("You have not provided any input criteria, aborting\n");
         exit(0);
     } else if( argc == 2) {
-        printf("You need to provide both input and output files");
+        printf("You need to provide both input and output files\n");
         exit(0);
     }
 
@@ -60,7 +60,7 @@ int main(int argc, char *argv[]){
     // don't want to override anything, yet.
     if(comparefiles(tarc, temp_dir) != 0) {
         perror("something went wrong!");
-        return 121;
+        exit(121);
     }
 
     int create_result = create_output_tar(temp_dir, argv[argc-1]);
@@ -68,7 +68,7 @@ int main(int argc, char *argv[]){
     //create the defined output tar, throw error if failed
     if(create_result != 0){
         printf("ERROR: Failed to create output TAR file\n");
-        return 122;
+        exit(122);
     }
 
     if(cleanup(temp_dir) != 0){

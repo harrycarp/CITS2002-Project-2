@@ -10,6 +10,6 @@ Some funky warnings were shown to do with implicit declaration, even though they
 and apparently gcc despises the function name compare_files? CMAKE was fine with it though..?
 
 You might also notice that I've included -D_BSD_SOURCE, that is because I use some predetermined variables to detect
-files v directories in the readdir() loops.
+files v directories in the readdir() loops (e.g. DT_DIR).
 
 Cheers!
